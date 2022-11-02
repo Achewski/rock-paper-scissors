@@ -5,26 +5,29 @@ function getComputerChoice() {
     return randomOption;
 }
 
-
-const playerSelection = "Rock";
-const computerSelection = getComputerChoice();
-
-
-function playRound(playerSelection, computerSelection) {
+function playRound() {
+    let playerSelection = "Rock";
+    let computerSelection = getComputerChoice();
     let result;
+    let winnerDeclaration;
 
     (playerSelection == "Paper" && computerSelection == "Rock") ? result = "Win" :
     (playerSelection == "Scissors" && computerSelection == "Paper") ? result = "Win" :
     (playerSelection == "Rock" && computerSelection == "Scissors") ? result = "Win" :
     (playerSelection == computerSelection) ? result = "Draw" :
     result = "Lose";
-
-    let winnerDeclaration;
     
     result == "Win" ? winnerDeclaration = `You Win! ${playerSelection} beats ${computerSelection}!` : 
     result == "Lose" ? winnerDeclaration = `You Lose! ${computerSelection} beats ${playerSelection}!` :
     winnerDeclaration = `It's a draw! You both chose ${playerSelection}!`;
+    
     return winnerDeclaration;
 }
 
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+    for (let i = 0; i < 5; i++) {
+        console.log(playRound());
+    }
+}
+
+game();
