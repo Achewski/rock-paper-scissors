@@ -22,8 +22,8 @@ function playRound() {
     (playerSelection == computerSelection) ? result = "tie" :                                                           /* Player and computer chose the same option */
     result = "Lose";                                                                                                    /* Player loses                              */
 
-    result == "Win" ? winnerDeclaration = `You Win! ${playerSelection} beats ${computerSelection}!` :                   /*                                              */
-    result == "Lose" ? winnerDeclaration = `You Lose! ${computerSelection} beats ${playerSelection}!` :                 /* Create winnerDeclaration message from result */
+    (result == "Win") ? winnerDeclaration = `You Win! ${playerSelection} beats ${computerSelection}!` :                 /*                                              */
+    (result == "Lose") ? winnerDeclaration = `You Lose! ${computerSelection} beats ${playerSelection}!` :               /* Create winnerDeclaration message from result */
     winnerDeclaration = `It's a tie! You both chose ${playerSelection}!`;                                               /*                                              */
     return [winnerDeclaration, result];                                                                                 /* Return array with winnerDeclaration as [0] and result as [1] in an array*/
 }
@@ -36,13 +36,13 @@ function game() {
     for (let i = 0; i < 5; i++) {                                                                                       /* Run 5 rounds                 */
         roundResult = playRound();
         console.log(roundResult[0]);                                                                                    /* Log round winner declaration */
-        roundResult[1] == "Win" ? wins++ :                                                                              /* Increment wins               */
-        roundResult[1] == "Lose" ? losses++ :                                                                           /* Increment losses             */
+        (roundResult[1] == "Win") ? wins++ :                                                                            /* Increment wins               */
+        (roundResult[1] == "Lose") ? losses++ :                                                                         /* Increment losses             */
         ties++;                                                                                                         /* Increment ties               */
     }
 
-    wins > losses && wins > ties ? console.log("Congratulations, you won the most rounds! You're the winner!") :        /*                                                               */
-    losses > wins && losses > ties ? console.log("Oh no, you lost more than you won! The computer is the winner!") :    /* Declare game winner based on number of wins, losses, and ties */
+    (wins > losses && wins > ties) ? console.log("Congratulations, you won the most rounds! You're the winner!") :      /*                                                               */
+    (losses > wins && losses > ties) ? console.log("Oh no, you lost more than you won! The computer is the winner!") :  /* Declare game winner based on number of wins, losses, and ties */
     console.log("You both won the same number of rounds. It's a tie!");                                                 /*                                                               */
 }
 
