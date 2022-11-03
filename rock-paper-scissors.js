@@ -41,10 +41,9 @@ function game() {
         ties++;                                                                                                         /* Increment ties               */
     }
 
-    (wins > losses && wins > ties) ? console.log("Congratulations, you won the most rounds! You're the winner!") :      /*                                                               */
-    (losses > wins && losses > ties) ? console.log("Oh no, you lost more than you won! The computer is the winner!") :  /* Declare game winner based on number of wins, losses, and ties */
-    (ties > wins && wins === losses) ? console.log("You both won the same number of rounds. It's a tie!") :             /*                                                               */
-    console.log("Unable to determine winner.");                                                                         /*                                                               */
+    (wins > losses) ? console.log("Congratulations, you won the most rounds! You're the winner!") :      /*                                                        */
+    (losses > wins) ? console.log("Oh no, you lost more than you won! The computer is the winner!") :    /* Declare game winner based on number of wins and losses */
+    console.log("You both won the same number of rounds. It's a tie!");                                  /*                                                        */                                                                   /*                                                               */
 }
 
 game();
