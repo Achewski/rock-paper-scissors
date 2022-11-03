@@ -43,7 +43,8 @@ function game() {
 
     (wins > losses && wins > ties) ? console.log("Congratulations, you won the most rounds! You're the winner!") :      /*                                                               */
     (losses > wins && losses > ties) ? console.log("Oh no, you lost more than you won! The computer is the winner!") :  /* Declare game winner based on number of wins, losses, and ties */
-    console.log("You both won the same number of rounds. It's a tie!");                                                 /*                                                               */
+    (ties > wins && wins === losses) ? console.log("You both won the same number of rounds. It's a tie!") :             /*                                                               */
+    console.log("Unable to determine winner.");                                                                         /*                                                               */
 }
 
 game();
