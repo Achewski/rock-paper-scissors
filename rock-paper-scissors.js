@@ -9,11 +9,11 @@ function playRound() {
     let winnerDeclaration;
     let computerSelection = getComputerChoice();
     let playerSelection = prompt("Paper, scissors, or rock?");
-        playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();           /* Force correct capitalization of player input */
+        playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();           /* Correct capitalization of player input       */
     
     while (playerSelection != "Paper" && playerSelection != "Scissors" && playerSelection != "Rock") {                  /* Loop until player enters valid option        */
         playerSelection = prompt("Please only enter paper, scissors, or rock.");                                        /* Prompt player to enter valid option          */
-        playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();           /* Force correct capitalization of player input */
+        playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();           /* Correct capitalization of player input       */
     }
 
     (playerSelection == "Paper" && computerSelection == "Rock") ? result = "Win" :                                      /* Player wins                               */
