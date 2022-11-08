@@ -1,49 +1,90 @@
-function getComputerChoice() {
+let weapons = document.querySelectorAll(".weapon");
+let roundResult = document.querySelector("#roundResult");
+let game = document.querySelector("#game");
+let gameOver = document.querySelector("#gameOver");
+let playerScore = document.querySelector("#playerScore");
+let cpuScore = document.querySelector("#cpuScore");
+
+let p1Score = 0;
+let p2Score = 0;
+
+function playRound(p1Choice, p2Choice) {
+	let winner;
+	(p1Choice === "Rock" && p2Choice === "Scissors") ||
+	(p1Choice === "Paper" && p2Choice === "Rock") ||
+	(p1Choice === "Scissors" && p2Choice === "Paper") ?
+		winner = "P1":
+	(p2Choice === "Rock" && p1Choice === "Scissors") ||
+	(p2Choice === "Paper" && p1Choice === "Rock") ||
+	(p2Choice === "Scissors" && p1Choice === "Paper") ?
+		winner = "P2":
+	winner = "Tie";
+	return winner;
+}
+
+function announceRoundWinner(winner, p1Choice, p2Choice) {
+	(winner === "P1") ? (winnerAnnouncement = `You win! ${p1Choice} beats ${p2Choice}`):
+	(winner === "P2") ? (winnerAnnouncement = `You lose! ${p2Choice} beats ${p1Choice}!`):
+	(winnerAnnouncement = `It's a tie! You both chose ${p1Choice}!`);
+	return winnerAnnouncement;
+}
+
+function announceGameWinner() {
+	if (p1Score === 5) {
+		return "You were the first to 5. You win! Click to play again!";
+	} else {
+		return "The computer was the first to 5. The computer wins! Click to play again!";
+	}
+}
+
+function updateScore(winner) {
+	if (winner === "P1") {
+	p1Score++;
+	} else if (winner === "P2") {
+	p2Score++;
+	} else {
+		return
+	}
+}
+
+function displayScore() {
+	playerScore.textContent = `Player = ${p1Score}`;
+	cpuScore.textContent = `Computer = ${p2Score}`;
+}
+
+function endGame() {
+	if (p1Score === 5 || p2Score === 5) {
+		p1Score = 0;
+		p2Score = 0;
+		displayScore();
+		gameReset.textContent = announceGameWinner();
+		game.style.display = "none";
+		gameOver.style.display = "flex";
+	} else {
+		return;
+	}
+}
+
+function newGame() {
+	gameOver.addEventListener("click", () => {
+		game.style.display = "flex";
+		gameOver.style.display = "none";
+	})
+}
+
+function getCpuChoice() {
 	let options = ["Rock", "Paper", "Scissors"]
-	let randomOption = Math.floor(Math.random() * options.length);                                                       /* Get position of random string from options */
-	return options[randomOption];                                                                                        /* Return string at position                  */
+	let randomOption = Math.floor(Math.random() * options.length);
+	return options[randomOption];
 }
 
-function playRound() {
-	let result;
-	let winnerDeclaration;
-	let computerSelection = getComputerChoice();
-	let playerSelection = prompt("Paper, scissors, or rock?");
-		playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();              /* Correct capitalization of player input       */
-	
-	while (playerSelection != "Paper" && playerSelection != "Scissors" && playerSelection != "Rock") {                   /* Loop until player enters valid option        */
-		playerSelection = prompt("Please only enter paper, scissors, or rock.");                                           /* Prompt player to enter valid option          */
-		playerSelection = playerSelection.slice(0, 1).toUpperCase() + playerSelection.slice(1).toLowerCase();              /* Correct capitalization of player input       */
-	}
-
-	(playerSelection == "Paper" && computerSelection == "Rock") ? result = "Win" :                                       /* Player wins                               */
-	(playerSelection == "Scissors" && computerSelection == "Paper") ? result = "Win" :                                   /* Player wins                               */
-	(playerSelection == "Rock" && computerSelection == "Scissors") ? result = "Win" :                                    /* Player wins                               */
-	(playerSelection == computerSelection) ? result = "tie" :                                                            /* Player and computer chose the same option */
-	result = "Lose";                                                                                                     /* Player loses                              */
-
-	(result == "Win") ? winnerDeclaration = `You Win! ${playerSelection} beats ${computerSelection}!` :                  /*                                              */
-	(result == "Lose") ? winnerDeclaration = `You Lose! ${computerSelection} beats ${playerSelection}!` :                /* Create winnerDeclaration message from result */
-	winnerDeclaration = `It's a tie! You both chose ${playerSelection}!`;                                                /*                                              */
-	return [winnerDeclaration, result];                                                                                  /* Return array with winnerDeclaration as [0] and result as [1] in an array*/
-}
-
-function game() {
-	let wins = 0;
-	let losses = 0;
-	let ties = 0;
-
-	for (let i = 0; i < 5; i++) {                                                                                        /* Run 5 rounds                 */
-		roundResult = playRound();
-		console.log(roundResult[0]);                                                                                       /* Log round winner declaration */
-		(roundResult[1] == "Win") ? wins++ :                                                                               /* Increment wins               */
-		(roundResult[1] == "Lose") ? losses++ :                                                                            /* Increment losses             */
-		ties++;                                                                                                            /* Increment ties               */
-	}
-
-	(wins > losses) ? console.log("Congratulations, you won the most rounds! You're the winner!") :                      /*                                                        */
-	(losses > wins) ? console.log("Oh no, you lost more than you won! The computer is the winner!") :                    /* Declare game winner based on number of wins and losses */
-	console.log("You both won the same number of rounds. It's a tie!");                                                  /*                                                        */                                                                   /*                                                               */
-}
-
-game();
+weapons.forEach(weapon => weapon.addEventListener("click", () => {
+	let p1Choice = weapon.textContent;
+	let p2Choice = getCpuChoice();
+	let winner = playRound(p1Choice, p2Choice);
+	roundResult.textContent = announceRoundWinner(winner, p1Choice, p2Choice);
+	updateScore(winner);
+	displayScore();
+	endGame();
+	newGame();
+}));
