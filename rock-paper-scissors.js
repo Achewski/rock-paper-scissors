@@ -54,9 +54,6 @@ function displayScore() {
 
 function endGame() {
 	if (p1Score === 5 || p2Score === 5) {
-		p1Score = 0;
-		p2Score = 0;
-		displayScore();
 		gameReset.textContent = announceGameWinner();
 		game.style.display = "none";
 		gameOver.style.display = "flex";
@@ -67,6 +64,9 @@ function endGame() {
 
 function newGame() {
 	gameOver.addEventListener("click", () => {
+		p1Score = 0;
+		p2Score = 0;
+		displayScore();
 		game.style.display = "flex";
 		gameOver.style.display = "none";
 	})
