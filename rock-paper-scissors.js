@@ -72,6 +72,18 @@ function newGame() {
 	})
 }
 
+function getPlayerChoice(weaponID) {
+	if (weaponID = "rock") {
+		return "Rock";
+	} else if (weaponID = "paper") {
+		return "Paper";
+	} else if (weaponID = "scissors") {
+		return "Scissors";
+	} else {
+		return;
+	}
+}
+
 function getCpuChoice() {
 	let options = ["Rock", "Paper", "Scissors"]
 	let randomOption = Math.floor(Math.random() * options.length);
@@ -79,7 +91,7 @@ function getCpuChoice() {
 }
 
 weapons.forEach(weapon => weapon.addEventListener("click", () => {
-	let p1Choice = weapon.textContent;
+	let p1Choice = getPlayerChoice(weapon.id);
 	let p2Choice = getCpuChoice();
 	let winner = playRound(p1Choice, p2Choice);
 	roundResult.textContent = announceRoundWinner(winner, p1Choice, p2Choice);
