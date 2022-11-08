@@ -73,17 +73,17 @@ function newGame() {
 }
 
 function getPlayerChoice(weaponID) {
-	if (weaponID = "rock") {
+	if (weaponID === "rock") {
 		return "Rock";
-	} else if (weaponID = "paper") {
+	} else if (weaponID === "paper") {
 		return "Paper";
-	} else if (weaponID = "scissors") {
+	} else if (weaponID === "scissors") {
 		return "Scissors";
 	} else {
 		return;
 	}
-}
-
+	}
+	
 function getCpuChoice() {
 	let options = ["Rock", "Paper", "Scissors"]
 	let randomOption = Math.floor(Math.random() * options.length);
